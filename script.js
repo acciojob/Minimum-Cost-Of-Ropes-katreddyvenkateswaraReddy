@@ -1,30 +1,30 @@
 //your code here
-let ans = 0;
-const btn = document.querySelector(".submitInput");
+function calculateMinCost() {
+        //your code here
+        // taking input of arrays and store the array as arr
+        const inputElement = document.getElementById("rope-lengths");
+        let arrayOfStrings = inputElement.value.split(",");
+        console.log(arrayOfStrings);        
 
-//function
+        let arr = [];
+        for (const iterator of arrayOfStrings) {
+            arr.push(parseInt(iterator));
+        }
+        // console.log(arr);
+        let costOfRopes = 0;
+        while(arr.length > 1){
+            arr.sort((a,b)=>a-b);
+            let val1 = arr.shift();
+            let val2 = arr.shift();
+            let sum = val1+val2;
+            costOfRopes += sum;
+            arr.push(sum); 
+        }
 
-function showResult(event) {
-  const values = document.querySelector(".textInput").value;
-  const temp = values.split(",");
-  let arr = [];
-  for (let i = 0; i < temp.length; i++) {
-    arr.push(Number(temp[i]));
-  }
-  arr.sort(function (a, b) {
-    return a - b;
-  });
-  while (arr.length > 1) {
-    let first = arr.shift();
-    let second = arr.shift();
-    ans += first + second;
-    arr.push(first + second);
-    arr.sort(function (a, b) {
-      return a - b;
-    });
-  }
-  document.querySelector("#result").textContent = ans;
-  console.log(ans);
-}
+        let result = document.getElementById("result");
+        result.innerText = costOfRopes;
+        return costOfRopes;
+        // console.log(arr);
+        // code logic
+      }  
 
-btn.addEventListener("click", showResult);
