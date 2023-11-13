@@ -1,24 +1,78 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
+    <title>Minimum Cost of Ropes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        #submit-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-
 <body>
-    <form id="form">
-        <label for="rope-lengths">Enter rope lengths:</label>
-        <input type="text" id="rope-lengths">
-        <button type="button" onclick="calculateMinCost()">Calculate</button>
-      </form>
-      <div id="result"></div>
+    <div id="container">
+        <h1>Minimum Cost of Ropes</h1>
+        <p>Enter comma-separated rope lengths:</p>
+        <input type="text" id="rope-input" placeholder="e.g., 12,14,5,6,6,7">
+        <button id="submit-button">Calculate Minimum Cost</button>
+        <div id="result"></div>
+    </div>
 
-<script>
-    type="text/javascript" src="./script.js"
+    <script>
+        // Function to calculate the minimum cost of connecting ropes
+        function calculateMinCost() {
+            const ropeInput = document.getElementById("rope-input");
+            const resultDiv = document.getElementById("result");
+            const ropes = ropeInput.value.split(",").map(Number);
 
-  </script>
-  
+            if (ropes.length < 2) {
+                resultDiv.textContent = "Please enter at least two rope lengths.";
+                return;
+            }
 
+            // Sort the rope lengths in ascending order
+            ropes.sort((a, b) => a - b);
+
+            let totalCost = 0;
+
+            while (ropes.length > 1) {
+                const min1 = ropes.shift();
+                const min2 = ropes.shift();
+                const cost = min1 + min2;
+                totalCost += cost;
+                ropes.push(cost);
+                ropes.sort((a, b) => a - b);
+            }
+
+            resultDiv.textContent = "Minimum cost of connecting ropes: " + totalCost;
+        }
+
+        // Add a click event listener to the submit button
+        document.getElementById("submit-button").addEventListener("click", calculateMinCost);
+    </script>
 </body>
-
 </html>
